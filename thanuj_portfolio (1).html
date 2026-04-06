@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Devarayi Thanuj — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --card: #16161f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --accent3: #43e97b;
+    --text: #f0f0f5;
+    --muted: #8888a0;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* animated gradient blob */
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    border-radius: 50%;
+    animation: blob 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .hero-blob2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,101,132,0.1) 0%, transparent 70%);
+    bottom: 0; left: 200px;
+    border-radius: 50%;
+    animation: blob 10s ease-in-out infinite alternate-reverse;
+    pointer-events: none;
+  }
+  @keyframes blob {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(40px, 30px) scale(1.1); }
+  }
+
+  .hero-content { max-width: 750px; position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(108,99,255,0.15);
+    border: 1px solid rgba(108,99,255,0.3);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 .line2 { color: var(--accent); }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn {
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+  }
+  .btn-primary:hover { background: #7c74ff; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+    font-size: 1.05rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .about-card-title {
+    font-family: var(--font-head);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+  .edu-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .edu-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .edu-degree {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .edu-school { color: var(--accent); font-size: 0.85rem; margin: 0.2rem 0; }
+  .edu-meta { color: var(--muted); font-size: 0.8rem; }
+  .gpa-badge {
+    display: inline-block;
+    background: rgba(67,233,123,0.1);
+    border: 1px solid rgba(67,233,123,0.25);
+    color: var(--accent3);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    margin-left: 0.5rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .skill-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .skill-card h3 {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+  }
+
+  /* ── PROJECT ── */
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .project-card:hover { border-color: rgba(108,99,255,0.4); }
+  .project-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(108,99,255,0.12);
+    border: 1px solid rgba(108,99,255,0.25);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1.2rem;
+  }
+  .project-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  .project-card p { color: var(--muted); font-weight: 300; margin-bottom: 1.5rem; }
+  .project-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .meta-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    flex-shrink: 0;
+  }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tech-tag {
+    background: rgba(108,99,255,0.1);
+    border: 1px solid rgba(108,99,255,0.2);
+    color: var(--accent);
+    font-size: 0.78rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  /* ── AWARDS ── */
+  .awards-list { display: flex; flex-direction: column; gap: 1rem; }
+  .award-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    transition: border-color 0.2s;
+  }
+  .award-item:hover { border-color: rgba(255,101,132,0.3); }
+  .award-year {
+    font-family: var(--font-head);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent2);
+    min-width: 40px;
+    padding-top: 2px;
+  }
+  .award-text { font-size: 0.95rem; color: var(--text); font-weight: 400; }
+  .award-org { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(108,99,255,0.12) 0%, transparent 70%);
+    top: -100px; right: -50px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .contact-section h2 {
+    font-family: var(--font-head);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+  .contact-section p { color: var(--muted); margin-bottom: 2rem; font-weight: 300; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    background: var(--bg2);
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    .contact-section { padding: 2.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">D<span>.</span>Thanuj</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-blob2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">⚡ Open to Internships</div>
+    <h1>
+      Devarayi<br>
+      <span class="line2">Thanuj</span>
+    </h1>
+    <p class="hero-desc">
+      CS undergrad at IIIT Manipur building at the intersection of
+      <strong style="color:var(--text)">Deep Learning</strong> and
+      <strong style="color:var(--text)">Full Stack Development</strong>.
+      Currently researching soil classification using CNNs &amp; GANs.
+    </p>
+    <div class="hero-btns">
+      <a href="#project" class="btn btn-primary">View My Project →</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">2026</span>
+        <span class="stat-label">Research Project</span>
+      </div>
+      <div>
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Technologies</span>
+      </div>
+      <div>
+        <span class="stat-num">IIIT</span>
+        <span class="stat-label">Manipur</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">Who I am</div>
+    <div class="section-title">About Me</div>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a <strong>B.Tech Computer Science student</strong> at IIIT Manipur (Expected May 2027), passionate about building things that matter — from web applications to machine learning systems.</p>
+      <p>My current research focuses on <strong>Soil Classification using Deep Learning</strong>, where I'm building a CNN trained on GAN-augmented datasets to classify 7 soil types — a real-world problem with practical agricultural impact.</p>
+      <p>I enjoy both the <strong>frontend craft</strong> of building clean, functional UIs and the <strong>backend logic</strong> that powers them. I'm actively looking for internship opportunities to grow my skills in a professional environment.</p>
+    </div>
+    <div>
+      <div class="about-card">
+        <div class="about-card-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">B.Tech — Computer Science & Engineering</div>
+          <div class="edu-school">IIIT Manipur</div>
+          <div class="edu-meta">Expected May 2027 · Imphal, India <span class="gpa-badge">GPA 5.5</span></div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Board of Intermediate Education</div>
+          <div class="edu-school">Physics · Chemistry · Maths</div>
+          <div class="edu-meta">2021 – 2023 <span class="gpa-badge">CGPA 7.9</span></div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Board of Secondary Education</div>
+          <div class="edu-school">Physics · Chemistry · Maths</div>
+          <div class="edu-meta">2013 <span class="gpa-badge">GPA 10/10</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-label">What I know</div>
+    <div class="section-title">Skills</div>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(108,99,255,0.15);">💻</div>
+      <h3>Programming</h3>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">C++</span>
+        <span class="tag">C</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(255,101,132,0.15);">🌐</div>
+      <h3>Web Development</h3>
+      <div class="skill-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Web Design</span>
+        <span class="tag">Full Stack</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(67,233,123,0.15);">🤖</div>
+      <h3>Machine Learning</h3>
+      <div class="skill-tags">
+        <span class="tag">PyTorch</span>
+        <span class="tag">CNN</span>
+        <span class="tag">CycleGAN</span>
+        <span class="tag">Deep Learning</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(255,193,7,0.15);">🛠️</div>
+      <h3>Tools & Software</h3>
+      <div class="skill-tags">
+        <span class="tag">Adobe Photoshop</span>
+        <span class="tag">Microsoft Office</span>
+        <span class="tag">Google Colab</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(0,188,212,0.15);">📊</div>
+      <h3>Data & Libraries</h3>
+      <div class="skill-tags">
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">Seaborn</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(156,39,176,0.15);">🎯</div>
+      <h3>Interests</h3>
+      <div class="skill-tags">
+        <span class="tag">Backend Dev</span>
+        <span class="tag">UI Design</span>
+        <span class="tag">ML Research</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECT -->
+<section id="project">
+  <div class="reveal">
+    <div class="section-label">What I've built</div>
+    <div class="section-title">Projects</div>
+  </div>
+  <div class="project-card reveal">
+    <div class="project-badge">🔬 Head Undergrad Research · IIIT Manipur</div>
+    <h3>Soil Classification using Deep Learning</h3>
+    <p>
+      Built a complete deep learning pipeline to classify <strong style="color:var(--text)">7 types of soil</strong>
+      from images using a CNN trained on GAN-augmented data. Tackled real-world challenges like
+      class imbalance (as few as 52 images per class) using CycleGAN to generate 8,413 synthetic
+      training images. Designed a leakage-free Train/Val/Test split strategy ensuring validation
+      and testing used only real original images.
+    </p>
+    <div class="project-meta">
+      <div class="meta-item"><div class="meta-dot"></div> Jan 2026 – May 2026</div>
+      <div class="meta-item"><div class="meta-dot" style="background:var(--accent2)"></div> 9,600+ training images</div>
+      <div class="meta-item"><div class="meta-dot" style="background:var(--accent)"></div> 7 soil classes</div>
+    </div>
+    <div class="project-tech">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">PyTorch</span>
+      <span class="tech-tag">MobileNetV2</span>
+      <span class="tech-tag">CycleGAN</span>
+      <span class="tech-tag">Google Colab</span>
+      <span class="tech-tag">Scikit-learn</span>
+      <span class="tech-tag">Transfer Learning</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="reveal">
+    <div class="section-label">Recognition</div>
+    <div class="section-title">Awards & Activities</div>
+  </div>
+  <div class="awards-list reveal">
+    <div class="award-item">
+      <div class="award-year">2026</div>
+      <div>
+        <div class="award-text">Council Member — Students Club</div>
+        <div class="award-org">IIIT Manipur</div>
+      </div>
+    </div>
+    <div class="award-item">
+      <div class="award-year">2026</div>
+      <div>
+        <div class="award-text">Event Manager — Hostel Day</div>
+        <div class="award-org">IIIT Manipur</div>
+      </div>
+    </div>
+    <div class="award-item">
+      <div class="award-year">2025</div>
+      <div>
+        <div class="award-text">🏆 Winner — Badminton Institute Trophy</div>
+        <div class="award-org">IIIT Manipur</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-section reveal">
+    <h2>Let's work together</h2>
+    <p>I'm actively looking for internship opportunities in Web Development or Machine Learning.<br>Feel free to reach out — I'd love to connect!</p>
+    <div class="contact-links">
+      <a href="mailto:thanujchinttu@gmail.com" class="contact-link">
+        ✉️ thanujchinttu@gmail.com
+      </a>
+      <a href="tel:+918328211393" class="contact-link">
+        📞 +91-8328211393
+      </a>
+      <a href="https://linkedin.com/in/thanuj-devarayi" target="_blank" class="contact-link">
+        💼 LinkedIn
+      </a>
+      <a href="https://facebook.com/thanuj.devarayi" target="_blank" class="contact-link">
+        📘 Facebook
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built with care · Devarayi Thanuj © 2026 · IIIT Manipur</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
